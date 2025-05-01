@@ -6,7 +6,7 @@
 /*   By: fcretin <fcretin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:37:57 by fcretin           #+#    #+#             */
-/*   Updated: 2025/04/26 16:40:39 by fcretin          ###   ########.fr       */
+/*   Updated: 2025/05/01 13:07:12 by fcretin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ Fixed::~Fixed( void )
 }
 
 
-
 /*---------------constructor------Canonical-------destructor----------------*/
+
+
+/*----func----*/
 
 
 int		Fixed::getRawBits( void )
@@ -76,3 +78,5 @@ void	Fixed::setRawBits( int const raw )
 
 }
 
+
+/*----func----*/

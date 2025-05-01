@@ -6,37 +6,38 @@
 /*   By: fcretin <fcretin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:37:57 by fcretin           #+#    #+#             */
-/*   Updated: 2025/04/27 13:37:23 by fcretin          ###   ########.fr       */
+/*   Updated: 2025/05/01 13:32:38 by fcretin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "Fixed.hpp"
 
-const int Fixed::_fracBits = 8;
+
+const int Fixed::_FracBits = 8;
+
 
 /*---------------constructor------Canonical-------destructor----------------*/
 
 
-Fixed::Fixed( void )	:	_value( 0 )
+Fixed::Fixed( void )	:	_Value( 0 )
 {
-	// std::cout << BLUE << "Default Constructor is Called" << RESET << std::endl;
+	// std::cout << BLUE << "Constructor Default is Called" << RESET << std::endl;
 }
 
 
 Fixed::Fixed( const Fixed &other )
 {
-	this->_value = other._value;
-	// std::cout << BLUE << "Copy Constructor is Called" << RESET << std::endl;
+	this->_Value = other._Value;
+	// std::cout << BLUE << "Constructor Copy is Called" << RESET << std::endl;
 }
 
 
 Fixed &Fixed::operator=( const Fixed &other )
 {
 	// std::cout << BLUE << "Operator '=' is Called" << RESET << std::endl;
-
 	if (this != &other)
-		this->_value = other._value;
-
+		this->_Value = other._Value;
 	return	*this;
 }
 
@@ -50,18 +51,19 @@ Fixed::~Fixed( void )
 /*---------------constructor------Canonical-------destructor----------------*/
 
 
-
 /*---------------constructor-------------destructor----------------*/
+
 
 Fixed::Fixed( int const value )
 {
-	this->_value = value << _fracBits;
+	this->_Value = value << this->_FracBits;
 	// std::cout << BLUE << "Constructor int is Called" << RESET << std::endl;
 }
 
+
 Fixed::Fixed( float const value )
 {
-	this->_value = roundf(value * (1 << _fracBits));
+	this->_Value = roundf(value * (1 << this->_FracBits));
 	// std::cout << BLUE << "Constructor float is Called" << RESET << std::endl;
 }
 
@@ -69,89 +71,101 @@ Fixed::Fixed( float const value )
 /*---------------constructor-------------destructor----------------*/
 
 
-
 /*----fixed point----*/
 
-float Fixed::toFloat( void ) const {return ((float)_value / (1 << _fracBits));}
-int Fixed::toInt( void ) const {return (_value >> _fracBits);}
+
+float Fixed::toFloat( void ) const {return ((float)this->_Value / (1 << this->_FracBits));}
+int Fixed::toInt( void ) const {return (this->_Value >> this->_FracBits);}
+
+
+/*----func----*/
+
 
 int		Fixed::getRawBits( void )
 {
 	// std::cout << "getRawBits is Called" << std::endl;
-	return	(this->_value);
+	return	(this->_Value);
 }
+
 
 void	Fixed::setRawBits( int const raw )
 {
+	this->_Value = raw;
 	// std::cout << "getRawBits is Called" << std::endl;
-	this->_value = raw;
 }
 
-std::ostream& operator<<( std::ostream &refo ,const Fixed &other )
-{
-	refo << other.toFloat();
-	return refo;
-}
+
+/*----func----*/
+
 
 /*----comparison operator---- */
 
-bool Fixed::operator>( const Fixed &other ){return (this->_value > other._value);}
-bool Fixed::operator<( const Fixed &other ){return (this->_value < other._value);}
-bool Fixed::operator>=( const Fixed &other ){return (this->_value >= other._value);}
-bool Fixed::operator<=( const Fixed &other ){return (this->_value <= other._value);}
-bool Fixed::operator==( const Fixed &other ){return (this->_value == other._value);}
-bool Fixed::operator!=( const Fixed &other ){return (this->_value != other._value);}
+
+bool Fixed::operator>( const Fixed &other ){return (this->_Value > other._Value);}
+bool Fixed::operator<( const Fixed &other ){return (this->_Value < other._Value);}
+bool Fixed::operator>=( const Fixed &other ){return (this->_Value >= other._Value);}
+bool Fixed::operator<=( const Fixed &other ){return (this->_Value <= other._Value);}
+bool Fixed::operator==( const Fixed &other ){return (this->_Value == other._Value);}
+bool Fixed::operator!=( const Fixed &other ){return (this->_Value != other._Value);}
+
+
+/*----comparison operator---- */
 
 
 /*----arithmetic operators----*/
 
+
 Fixed Fixed::operator+( const Fixed &other )
 {
 	Fixed Res;
-	Res.setRawBits(this->_value + other._value);
+	Res.setRawBits(this->_Value + other._Value);
 	return (Res);
 }
 
 Fixed Fixed::operator-( const Fixed &other )
 {
 	Fixed Res;
-	Res.setRawBits(this->_value - other._value);
+	Res.setRawBits(this->_Value - other._Value);
 	return (Res);
 }
 
 Fixed Fixed::operator*( const Fixed &other )
 {
 	Fixed Res;
-	Res.setRawBits((this->_value * other._value) >> _fracBits);
+	Res.setRawBits((this->_Value * other._Value) >> _FracBits);
 	return (Res);
 }
 
 Fixed Fixed::operator/( const Fixed &other )
 {
-	if (other._value == 0)
+	if (other._Value == 0)
 	{
 		std::cerr << RED << "Error: Division by zero! Set at default." << RESET << std::endl;
 		return Fixed(0);
 	}
 	Fixed Res;
-	Res.setRawBits((this->_value <<_fracBits) / other._value);
+	Res.setRawBits((this->_Value <<_FracBits) / other._Value);
 	return (Res);
 }
 
 
+/*----arithmetic operators----*/
+
+
 /*----increment and decrement operators----*/
+
 
 Fixed &Fixed::operator++( )
 {
 	// std::cout << BLUE << "pre + is Called" << RESET << std::endl;
-	this->_value++;
+	this->_Value++;
 	return (*this);
 }// pre
 
 Fixed &Fixed::operator--( )
 {
 	// std::cout << BLUE << "pre - is Called" << RESET << std::endl;
-	this->_value--;
+	this->_Value--;
 	return (*this);
 }// pre
 
@@ -159,7 +173,7 @@ Fixed Fixed::operator++( int )
 {
 	// std::cout << BLUE << "post + is Called" << RESET << std::endl;
 	Fixed tmp = *this;
-	this->_value++;
+	this->_Value++;
 	return (tmp);
 }// post
 
@@ -167,12 +181,16 @@ Fixed Fixed::operator--( int )
 {
 	// std::cout << BLUE << "post - is Called" << RESET << std::endl;
 	Fixed tmp = *this;
-	this->_value--;
+	this->_Value--;
 	return (tmp);
 }// post
 
 
+/*----increment and decrement operators----*/
+
+
 /*----min max----*/
+
 
 float Fixed::max( Fixed &Ref1, Fixed &Ref2 )
 {
@@ -188,7 +206,12 @@ float Fixed::min( Fixed &Ref1, Fixed &Ref2 )
 	return (Ref2.toFloat());
 }
 
+
+/*----min max----*/
+
+
 /*----const min max----*/
+
 
 float Fixed::max( const Fixed &Ref1, const Fixed &Ref2 )
 {
@@ -202,4 +225,14 @@ float Fixed::min( const Fixed &Ref1, const Fixed &Ref2 )
 	if (Ref1.toFloat() < Ref2.toFloat())
 		return (Ref1.toFloat());
 	return (Ref2.toFloat());
+}
+
+
+/*----const min max----*/
+
+
+std::ostream& operator<<( std::ostream &refo ,const Fixed &other )
+{
+	refo << other.toFloat();
+	return refo;
 }

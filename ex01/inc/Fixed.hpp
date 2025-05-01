@@ -29,8 +29,8 @@ class Fixed
 	private:
 	// {
 
-		int					_value;
-		static const int	_fracBits;
+		int					_Value;
+		static const int	_FracBits;
 
 	// }
 	public:
@@ -45,9 +45,9 @@ class Fixed
 		Fixed( float const value );
 
 
-
 		int	getRawBits( void );
 		void setRawBits( int const raw );
+
 		float toFloat( void ) const;
 		int toInt( void ) const;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Point.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fcretin <fcretin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/01 13:35:21 by fcretin           #+#    #+#             */
+/*   Updated: 2025/05/01 13:35:28 by fcretin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "Point.hpp"
 
@@ -7,7 +19,6 @@
 Point::Point( void )	:	_x( 0 ), _y(0)
 {
 	// std::cout << BLUE << "Default Constructor is Called" << RESET << std::endl;
-
 }
 
 
@@ -19,23 +30,18 @@ Point::Point( const Point &other ) : _x( other._x ), _y(other._y)
 
 Point &Point::operator=( const Point &other )
 {
-
 	// std::cout << BLUE << "Operator '=' is Called" << RESET << std::endl;
 	if (this != &other){
 	// 	this->_x = other._x;
 	// 	this->_y = other._y;
 	}
-
 	return	*this;
-
 }
 
 
 Point::~Point( void )
 {
-
 	// std::cout << YELLOW << "Destructor is Called" << RESET << std::endl;
-
 }
 
 /*---------------constructor------Canonical-------destructor----------------*/

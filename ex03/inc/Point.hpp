@@ -6,9 +6,10 @@
 /*   By: fcretin <fcretin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:27:31 by fcretin           #+#    #+#             */
-/*   Updated: 2025/04/27 15:06:36 by fcretin          ###   ########.fr       */
+/*   Updated: 2025/05/01 13:34:06 by fcretin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef POINT_HPP
 #define POINT_HPP
@@ -16,6 +17,7 @@
 
 #include <iostream>
 #include "Fixed.hpp"
+
 
 #define RESET "\033[0m"
 #define RED "\033[31m"
@@ -31,7 +33,6 @@ class Point
 		const Fixed	_x;
 		const Fixed	_y;
 
-		// "◦ Et tout ce qui peut vous être utile."
 
 	// }
 	public:
@@ -44,7 +45,6 @@ class Point
 
 		Point( const float &x, const float &y );
 
-		// "◦ Et tout ce qui peut vous être utile.""
 		bool operator==( const Point &other ) const ;
 		float	getFixedX( void ) const;
 		float	getFixedY( void ) const;

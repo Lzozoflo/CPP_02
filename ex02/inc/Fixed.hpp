@@ -29,8 +29,8 @@ class Fixed
 	private:
 	// {
 
-		int					_value;
-		static const int	_fracBits;
+		int					_Value;
+		static const int	_FracBits;
 
 	// }
 	public:
@@ -43,6 +43,16 @@ class Fixed
 
 		Fixed( int const value );
 		Fixed( float const value );
+
+
+		/*----fixed point----*/
+		float toFloat( void ) const;
+		int toInt( void ) const;
+
+
+		/*----Func----*/
+		int	getRawBits( void );
+		void setRawBits( int const raw );
 
 
 		/*----comparison operator---- */
@@ -67,18 +77,15 @@ class Fixed
 		Fixed operator++( int ); // post
 		Fixed operator--( int ); // post
 
+
 		/*----min max----*/
 		static float max( Fixed &Ref1, Fixed &Ref2 );
 		static float min( Fixed &Ref1, Fixed &Ref2 );
+
+
 		/*----const min max----*/
 		static float max( const Fixed &Ref1, const Fixed &Ref2 );
 		static float min( const Fixed &Ref1, const Fixed &Ref2 );
-
-		/*----Func----*/
-		int	getRawBits( void );
-		void setRawBits( int const raw );
-		float toFloat( void ) const;
-		int toInt( void ) const;
 
 	// }
 };
@@ -87,10 +94,3 @@ class Fixed
 std::ostream& operator<<( std::ostream &refo ,const Fixed &other );
 
 #endif
-
-// Ajoutez à votre classe des fonctions membres publiques afin de surcharger les opérateurs suivants :
-// • Les 6 opérateur de comparaison : >, <, >=, <=, == et !=.
-// • Les 4 opérateurs de arithmétiques : +, -, *, et /.
-// • Les 4 opérateurs d’incrémentation et de décrémentation (pré-incrémentation et
-// post-incrémentation, pré-décrémentation et post-décrémentation) qui diminueront
-// la valeur du nombre à virgule fixe d’unité ϵ tel que 1 + ϵ > 1.
