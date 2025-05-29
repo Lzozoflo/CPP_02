@@ -6,15 +6,21 @@
 /*   By: fcretin <fcretin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:37:57 by fcretin           #+#    #+#             */
-/*   Updated: 2025/05/01 13:32:38 by fcretin          ###   ########.fr       */
+/*   Updated: 2025/05/29 14:54:38 by fcretin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "Fixed.hpp"
+#include <climits>
+#include <cfloat>
 
 
-const int Fixed::_FracBits = 8;
+const int		Fixed::_FracBits		=	8;
+
+const int		Fixed::_ValueIntMax		=	INT_MAX >> 8;
+const int		Fixed::_ValueIntMin		=	INT_MIN >> 8;
+
 
 
 /*---------------constructor------Canonical-------destructor----------------*/
@@ -28,8 +34,8 @@ Fixed::Fixed( void )	:	_Value( 0 )
 
 Fixed::Fixed( const Fixed &other )
 {
-	this->_Value = other._Value;
 	// std::cout << BLUE << "Constructor Copy is Called" << RESET << std::endl;
+	this->_Value = other._Value;
 }
 
 
@@ -56,15 +62,28 @@ Fixed::~Fixed( void )
 
 Fixed::Fixed( int const value )
 {
-	this->_Value = value << this->_FracBits;
 	// std::cout << BLUE << "Constructor int is Called" << RESET << std::endl;
+
+	if (value > this->_ValueIntMax || value < this->_ValueIntMin) {
+		std::cout << RED << "Error: int value too high to be stored as fixed point." << RESET << std::endl;
+		this->_Value = 0;
+		return;
+	}
+	this->_Value = value << this->_FracBits;
 }
 
 
 Fixed::Fixed( float const value )
 {
-	this->_Value = roundf(value * (1 << this->_FracBits));
 	// std::cout << BLUE << "Constructor float is Called" << RESET << std::endl;
+
+	if (value > this->_ValueIntMax || value < this->_ValueIntMin)
+	{
+		std::cout << RED << "Error: float value too high to be stored as fixed point." << RESET << std::endl;
+		this->_Value = 0;
+		return;
+	}
+	this->_Value = roundf(value * (1 << this->_FracBits));
 }
 
 
@@ -83,15 +102,19 @@ int Fixed::toInt( void ) const {return (this->_Value >> this->_FracBits);}
 
 int		Fixed::getRawBits( void )
 {
-	// std::cout << "getRawBits is Called" << std::endl;
+
+	// std::cout << BLUE << "getRawBits is Called" << RESET  << std::endl;
 	return	(this->_Value);
+
 }
 
 
 void	Fixed::setRawBits( int const raw )
 {
+
+	// std::cout << BLUE << "getRawBits is Called" << RESET  << std::endl;
 	this->_Value = raw;
-	// std::cout << "getRawBits is Called" << std::endl;
+
 }
 
 
@@ -108,6 +131,8 @@ bool Fixed::operator<=( const Fixed &other ){return (this->_Value <= other._Valu
 bool Fixed::operator==( const Fixed &other ){return (this->_Value == other._Value);}
 bool Fixed::operator!=( const Fixed &other ){return (this->_Value != other._Value);}
 
+bool Fixed::operator>( const Fixed &other )const {return (this->_Value > other._Value);}
+bool Fixed::operator<( const Fixed &other )const {return (this->_Value < other._Value);}
 
 /*----comparison operator---- */
 
@@ -140,9 +165,10 @@ Fixed Fixed::operator/( const Fixed &other )
 {
 	if (other._Value == 0)
 	{
-		std::cerr << RED << "Error: Division by zero! Set at default." << RESET << std::endl;
+		std::cout << RED << "Error: Division by zero! Set at default." << RESET << std::endl;
 		return Fixed(0);
 	}
+
 	Fixed Res;
 	Res.setRawBits((this->_Value <<_FracBits) / other._Value);
 	return (Res);
@@ -194,16 +220,22 @@ Fixed Fixed::operator--( int )
 
 float Fixed::max( Fixed &Ref1, Fixed &Ref2 )
 {
-	if (Ref1.toFloat() > Ref2.toFloat())
+	if (Ref1 > Ref2)
 		return (Ref1.toFloat());
 	return (Ref2.toFloat());
+	// if (Ref1.toFloat() > Ref2.toFloat())
+	// 	return (Ref1.toFloat());
+	// return (Ref2.toFloat());
 }
 
 float Fixed::min( Fixed &Ref1, Fixed &Ref2 )
 {
-	if (Ref1.toFloat() < Ref2.toFloat())
+	if (Ref1 < Ref2)
 		return (Ref1.toFloat());
 	return (Ref2.toFloat());
+	// if (Ref1.toFloat() < Ref2.toFloat())
+	// 	return (Ref1.toFloat());
+	// return (Ref2.toFloat());
 }
 
 
@@ -215,16 +247,23 @@ float Fixed::min( Fixed &Ref1, Fixed &Ref2 )
 
 float Fixed::max( const Fixed &Ref1, const Fixed &Ref2 )
 {
-	if (Ref1.toFloat() > Ref2.toFloat())
+
+	if (Ref1 > Ref2)//bonus
 		return (Ref1.toFloat());
 	return (Ref2.toFloat());
+	// if (Ref1.toFloat() > Ref2.toFloat())
+	// 	return (Ref1.toFloat());
+	// return (Ref2.toFloat());
 }
 
 float Fixed::min( const Fixed &Ref1, const Fixed &Ref2 )
 {
-	if (Ref1.toFloat() < Ref2.toFloat())
+	if (Ref1 < Ref2)//bonus
 		return (Ref1.toFloat());
 	return (Ref2.toFloat());
+	// if (Ref1.toFloat() < Ref2.toFloat())
+	// 	return (Ref1.toFloat());
+	// return (Ref2.toFloat());
 }
 
 

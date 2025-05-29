@@ -6,29 +6,28 @@
 /*   By: fcretin <fcretin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:37:57 by fcretin           #+#    #+#             */
-/*   Updated: 2025/05/01 13:07:12 by fcretin          ###   ########.fr       */
+/*   Updated: 2025/05/28 12:37:18 by fcretin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-const int Fixed::_fracBits = 8;
+const int Fixed::_FracBits = 8;
 
 /*---------------constructor------Canonical-------destructor----------------*/
 
 
 
-Fixed::Fixed( void )	:	_value( 0 )
+Fixed::Fixed( void )	:	_Value( 0 )
 {
 	std::cout << BLUE << "Default Constructor is Called" << RESET << std::endl;
-
 }
 
 
 Fixed::Fixed( const Fixed &other )
 {
 
-	this->_value = other._value;
+	this->_Value = other._Value;
 	std::cout << BLUE << "Copy Constructor is Called" << RESET << std::endl;
 
 }
@@ -39,7 +38,7 @@ Fixed &Fixed::operator=( const Fixed &other )
 
 	std::cout << BLUE << "Operator '=' is Called" << RESET << std::endl;
 	if (this != &other)
-		this->_value = other._value;
+		this->_Value = other._Value;
 
 	return	*this;
 
@@ -63,9 +62,8 @@ Fixed::~Fixed( void )
 int		Fixed::getRawBits( void )
 {
 
-	std::cout << "getRawBits is Called" << std::endl;
-
-	return	(this->_value);
+	std::cout << BLUE << "getRawBits is Called" << RESET  << std::endl;
+	return	(this->_Value);
 
 }
 
@@ -73,8 +71,8 @@ int		Fixed::getRawBits( void )
 void	Fixed::setRawBits( int const raw )
 {
 
-	this->_value = raw;
-	std::cout << "getRawBits is Called" << std::endl;
+	std::cout << BLUE << "getRawBits is Called" << RESET  << std::endl;
+	this->_Value = raw;
 
 }
 

@@ -28,8 +28,8 @@ class Fixed
 	private:
 	// {
 
-		int					_value;
-		static const int	_fracBits;
+		int					_Value;
+		static const int	_FracBits;
 
 	// }
 	public:
