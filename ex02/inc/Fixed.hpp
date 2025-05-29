@@ -31,6 +31,8 @@ class Fixed
 
 		int					_Value;
 		static const int	_FracBits;
+		static const int	_ValueIntMin;
+		static const int	_ValueIntMax;
 
 	// }
 	public:
@@ -62,6 +64,10 @@ class Fixed
 		bool operator<=( const Fixed &other );
 		bool operator==( const Fixed &other );
 		bool operator!=( const Fixed &other );
+
+		bool operator>( const Fixed &other )const ;//bonus
+		bool operator<( const Fixed &other )const ;//bonus
+
 
 
 		/*----arithmetic operators----*/
