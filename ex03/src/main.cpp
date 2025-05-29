@@ -6,7 +6,7 @@
 /*   By: fcretin <fcretin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 11:06:45 by fcretin           #+#    #+#             */
-/*   Updated: 2025/04/27 16:42:01 by fcretin          ###   ########.fr       */
+/*   Updated: 2025/05/29 15:57:23 by fcretin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	pos_point( Point const p1, Point const p2, Point const point)
 
 bool bsp( Point const a, Point const b, Point const c, Point const point)
 {
-	std::cout << point.getFixedX() << ", " << point.getFixedY();
 
 	float d1 = pos_point( a, b, point ); //	AB
 	float d2 = pos_point( b, c, point ); //	BC
@@ -44,12 +43,17 @@ int main()
 {
 	Point a( 0, 0 );
 	Point b( 0, 4 );
-	Point c( 0, 5 );
-	Point p( 0, 3 );
+	Point c( 5, 0 );
+	Point p( -1, -1 );
 
 
 	if (bsp( a, b, c, p)){
-		std::cout << " is out" << std::endl;
-		return (1);}
+		std::cout << p.getFixedX() << ", " << p.getFixedY() << " is out." << std::endl;
+		return (1);
+	}
+	else{
+
+		std::cout << p.getFixedX() << ", " << p.getFixedY() << " is in." << std::endl;
+	}
 	return (0);
 }

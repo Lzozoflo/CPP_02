@@ -6,7 +6,7 @@
 /*   By: fcretin <fcretin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:37:57 by fcretin           #+#    #+#             */
-/*   Updated: 2025/05/29 14:54:38 by fcretin          ###   ########.fr       */
+/*   Updated: 2025/05/29 15:51:25 by fcretin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,23 +247,22 @@ float Fixed::min( Fixed &Ref1, Fixed &Ref2 )
 
 float Fixed::max( const Fixed &Ref1, const Fixed &Ref2 )
 {
-
-	if (Ref1 > Ref2)//bonus
-		return (Ref1.toFloat());
-	return (Ref2.toFloat());
-	// if (Ref1.toFloat() > Ref2.toFloat())
+	// if (Ref1 > Ref2)//bonus
 	// 	return (Ref1.toFloat());
 	// return (Ref2.toFloat());
+	if (Ref1.toFloat() > Ref2.toFloat())
+		return (Ref1.toFloat());
+	return (Ref2.toFloat());
 }
 
 float Fixed::min( const Fixed &Ref1, const Fixed &Ref2 )
 {
-	if (Ref1 < Ref2)//bonus
-		return (Ref1.toFloat());
-	return (Ref2.toFloat());
-	// if (Ref1.toFloat() < Ref2.toFloat())
+	// if (Ref1 < Ref2)//bonus
 	// 	return (Ref1.toFloat());
 	// return (Ref2.toFloat());
+	if (Ref1.toFloat() < Ref2.toFloat())
+		return (Ref1.toFloat());
+	return (Ref2.toFloat());
 }
 
 
